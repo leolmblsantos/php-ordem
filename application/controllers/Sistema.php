@@ -11,6 +11,11 @@ class Sistema extends CI_Controller{
             $this->session->set_flashdata('info', 'Sua sessão expirou!');
             redirect('login');
         }
+        
+        if(!$this->ion_auth->is_admin()){
+            $this->session->set_flashdata('info', 'Você não tem permissão para acessar o menu Sistema');
+            redirect('home');
+        }
     }
     
     public function index() {

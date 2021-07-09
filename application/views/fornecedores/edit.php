@@ -146,7 +146,7 @@
                                 <div class="form-group row">
                                     
                                     <div class="col-md-4">
-                                        <label>Cliente Ativo</label>
+                                        <label>Fornecedor Ativo</label>
                                         <select class="custom-select" name="fornecedor_ativo">
                                             <option value="0" <?php echo ($fornecedor->fornecedor_ativo == 0 ? 'selected' : ''); ?> >Não</option>
                                             <option value="1" <?php echo ($fornecedor->fornecedor_ativo == 1 ? 'selected' : ''); ?> >Sim</option>

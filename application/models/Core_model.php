@@ -104,4 +104,50 @@ class Core_model extends CI_Model{
         }
         
     }
+    
+    /**
+     * @ Habilitar helper string
+     * @param string $table
+     * @param string $type_of_code. Ex.: 'numeric', 'alpha', 'alnum', 'basic', 'numeric', 'nozero', 'md5', 'sha1'
+     * @param int $size_of_code
+     * @param string $field_seach
+     * @return int
+     */
+    //public function generate_unique_code($size_of_code, $field_search, $table = NULL, $type_of_code = NULL) {
+    public function generate_unique_code($table = NULL, $type_of_code = NULL, $size_of_code, $field_search) {
+        do {
+            $code = random_string($type_of_code, $size_of_code);
+            $this->db->where($field_search, $code);
+            $this->db->from($table);
+        } while ($this->db->count_all_results() >= 1);
+
+        return $code;
+    }
+    
+    public function auto_complete_produtos($busca = NULL) {
+        
+        if($busca){
+            
+            $this->db->like('produto_descricao', $busca, 'both');
+            $this->db->where('produto_ativo', 1);
+            $this->db->where('produto_qtde_estoque >', 0);
+            return $this->db->get('produtos')->result();
+        }else{
+            return FALSE;
+        }
+        
+    }
+    
+    public function auto_complete_servicos($busca = NULL) {
+        
+        if($busca){
+            
+            $this->db->like('servico_descricao', $busca, 'both');
+            $this->db->where('servico_ativo', 1);
+            return $this->db->get('servicos')->result();
+        }else{
+            return FALSE;
+        }
+        
+    }
 }
